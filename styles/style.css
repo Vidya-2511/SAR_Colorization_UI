@@ -1,0 +1,11 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+h1, h2, h3 {
+    text-align: center;
+    color: #ffffff;
+}
+.sidebar .sidebar-content {
+    background-color: #1e1e2f;
+    color: white;
+}
