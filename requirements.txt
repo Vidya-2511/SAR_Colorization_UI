@@ -5,5 +5,5 @@ Pillow
 opencv-python-headless
 scikit-image
 scikit-learn
-tensorflow==2.9.1
-protobuf~=3.19.0  # Prevents TensorFlow conflicts
+tensorflow==2.17.1  # Compatible with Python 3.12
+protobuf~=3.20.3  # Prevents TensorFlow conflicts
