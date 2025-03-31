@@ -1,0 +1,9 @@
+streamlit
+numpy
+matplotlib
+Pillow
+opencv-python-headless
+scikit-image
+tensorflow==2.9.1
+scikit-learn
+protobuf==3.20.*   # Prevents TensorFlow conflicts

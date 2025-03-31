@@ -1,0 +1,14 @@
+# Ignore virtual environment
+venv/
+.venv/
+
+# Ignore model files (if using Hugging Face link instead)
+model/unet_model.h5
+
+# Ignore system files
+__pycache__/
+.DS_Store
+.idea/
+
+# Ignore logs
+logs/
