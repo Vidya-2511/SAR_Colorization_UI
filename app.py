@@ -21,7 +21,7 @@ st.sidebar.title("🌟 Navigation")
 page = st.sidebar.radio("Go to", ["🏠 Home", "🎨 Colorization", "📜 About"])
 
 if page == "🏠 Home":
-    st.video("assets/earth_rotation.mp4")  # Background animation
+    #st.video("assets/earth_rotation.mp4")  # Background animation
     st.markdown('<h1 class="main-title">Welcome to SAR Image Colorization 🌍</h1>', unsafe_allow_html=True)
     st.write("This project colorizes grayscale SAR images using deep learning.")
 
