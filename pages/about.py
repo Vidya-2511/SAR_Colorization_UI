@@ -1,12 +1,15 @@
 import streamlit as st
+import base64
 
 def set_background():
-    """Applies background image using custom CSS."""
-    background_image = "assets/background.jpg"
+    """Applies background image using custom CSS with base64 encoding."""
+    with open("assets/background.jpg", "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode()
+
     bg_style = f"""
     <style>
     .stApp {{
-        background: url({background_image}) no-repeat center center fixed;
+        background: url("data:image/jpg;base64,{encoded_string}") no-repeat center center fixed;
         background-size: cover;
     }}
     .content {{
