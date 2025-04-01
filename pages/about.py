@@ -9,6 +9,15 @@ def set_background():
         background: url({background_image}) no-repeat center center fixed;
         background-size: cover;
     }}
+    .content {{
+        text-align: center;
+        color: white;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        padding: 20px;
+        border-radius: 10px;
+        width: 60%;
+        margin: auto;
+    }}
     </style>
     """
     st.markdown(bg_style, unsafe_allow_html=True)
@@ -16,9 +25,9 @@ def set_background():
 def show():
     set_background()  # Set background image
 
-    st.markdown('<h1 style="text-align:center;">📜 About This Project</h1>', unsafe_allow_html=True)
+    st.markdown('<div class="content">', unsafe_allow_html=True)
+    st.markdown('<h1>📜 About This Project</h1>', unsafe_allow_html=True)
 
-    st.image("assets/background.jpg", use_column_width=True)
     st.write("""
     ## What is SAR Image Colorization?
     - SAR (Synthetic Aperture Radar) is used in remote sensing.
@@ -32,6 +41,8 @@ def show():
     """)
 
     st.write("🌍 Made with ❤️ for the competition!")
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Run the function to display the page
 show()
