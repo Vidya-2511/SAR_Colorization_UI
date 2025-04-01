@@ -1,32 +1,57 @@
 import streamlit as st
-import base64
 
-def set_background():
-    """Applies background image using custom CSS with base64 encoding."""
-    with open("assets/background.jpg", "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode()
+def set_background_video():
+    """Embeds a video as a background in Streamlit using HTML & CSS."""
+    background_video = "assets/earth_rotation.mp4"  # Ensure the video is in this location
 
-    bg_style = f"""
+    video_html = f"""
     <style>
     .stApp {{
-        background: url("data:image/jpg;base64,{encoded_string}") no-repeat center center fixed;
-        background-size: cover;
+        position: relative;
+        overflow: hidden;
+    }}
+    .stApp::before {{
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: rgba(0, 0, 0, 0.5); /* Optional overlay for contrast */
+    }}
+    video {{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: auto;
+        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        transform: translate(-50%, -50%);
+        z-index: -2;
+        object-fit: cover;
     }}
     .content {{
         text-align: center;
         color: white;
-        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        background: rgba(0, 0, 0, 0.5);
         padding: 20px;
         border-radius: 10px;
         width: 60%;
         margin: auto;
     }}
     </style>
+    
+    <video autoplay loop muted>
+        <source src="{background_video}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     """
-    st.markdown(bg_style, unsafe_allow_html=True)
+    st.markdown(video_html, unsafe_allow_html=True)
 
 def show():
-    set_background()  # Set background image
+    set_background_video()  # Apply background video
 
     st.markdown('<div class="content">', unsafe_allow_html=True)
     st.markdown('<h1>📜 About This Project</h1>', unsafe_allow_html=True)
