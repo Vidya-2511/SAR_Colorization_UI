@@ -38,6 +38,7 @@ def show():
 import streamlit as st
 import numpy as np
 import tensorflow as tf
+import cv2
 from PIL import Image
 from utils.image_processing import preprocess_input, enhance_output
 from utils.evaluation import calculate_metrics
@@ -67,6 +68,7 @@ uploaded_file = st.file_uploader("Upload a SAR Image", type=["png", "jpg", "jpeg
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("L")
+    image = image.resize((128, 128))  # ✅ Fix: Resize image to match model input
     st.image(image, caption="Original SAR Image", width=300)
 
     if st.button("Colorize"):
@@ -83,3 +85,4 @@ if uploaded_file is not None:
         st.write(f"📊 **Metrics:** PSNR: {psnr:.2f} | SSIM: {ssim:.2f} | MSE: {mse_value:.2f}")
 
         st.download_button("📥 Download Colorized Image", data=colorized.tobytes(), file_name="colorized.png", mime="image/png")
+
