@@ -39,96 +39,22 @@ elif page == "📜 About":
 import streamlit as st
 from PIL import Image
 import numpy as np
-import tensorflow as tf
-from tensorflow.keras.losses import MeanSquaredError
+from utils.helpers import process_image
 
 st.set_page_config(page_title="SAR Image Colorization", layout="wide")
-
-# Load U-Net model
-@st.cache_resource
-def load_model():
-    model_path = "/content/drive/MyDrive/unet_model_2025_01_17.h5"
-    return tf.keras.models.load_model(model_path, custom_objects={'mse': MeanSquaredError()})
-
-model = load_model()
-
-def load_image(image):
-    img = image.convert('L')
-    img = img.resize((128, 128))
-    img = np.array(img) / 255.0
-    img = np.expand_dims(img, axis=(0, -1))
-    return img.astype(np.float32)
-
-def process_image(image):
-    input_image = load_image(image)
-    prediction = model.predict(input_image)
-    predicted_image = (prediction.squeeze() * 255).astype(np.uint8)
-    return Image.fromarray(predicted_image)
 
 # Sidebar Navigation
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Home", "Colorize", "About"])
 
-# Home Page - Video Background
+# Home Page
 if page == "Home":
-    st.markdown(
-        '''
-        <style>
-        .fullPage {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-        video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -1;
-        }
-        .titleText {
-            text-align: center;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            margin-top: 20%;
-        }
-        </style>
-        <div class="fullPage">
-            <video autoplay loop muted>
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-            </video>
-        </div>
-        <div class="titleText">Welcome to SAR Image Colorization</div>
-        ''',
-        unsafe_allow_html=True
-    )
+    st.markdown("# 🌍 SAR Image Colorization App")
+    st.write("Upload grayscale SAR images and get colorized predictions!")
 
-# Colorize Page - Image Background
+# Colorize Page
 elif page == "Colorize":
-    st.markdown(
-        '''
-        <style>
-        .colorize-bg {
-            background: url('https://source.unsplash.com/1600x900/?satellite,space') no-repeat center center fixed;
-            background-size: cover;
-            padding: 20px;
-            color: white;
-            text-align: center;
-        }
-        </style>
-        <div class="colorize-bg">
-        <h1>SAR Image Colorization</h1>
-        </div>
-        ''',
-        unsafe_allow_html=True
-    )
-
-    st.write("Upload a SAR grayscale image and get a predicted optical image.")
+    st.markdown("## Upload Your SAR Image")
     uploaded_file = st.file_uploader("Upload an Image", type=["png", "jpg", "jpeg", "tiff", "tif"])
 
     if uploaded_file is not None:
@@ -139,23 +65,8 @@ elif page == "Colorize":
             output_image = process_image(image)
             st.image(output_image, caption="Predicted Optical Image", use_column_width=True)
 
-# About Page - Image Background
+# About Page
 elif page == "About":
-    st.markdown(
-        '''
-        <style>
-        .about-bg {
-            background: url('https://source.unsplash.com/1600x900/?technology,ai') no-repeat center center fixed;
-            background-size: cover;
-            padding: 20px;
-            color: white;
-            text-align: center;
-        }
-        </style>
-        <div class="about-bg">
-        <h1>About This Project</h1>
-        <p>This AI model uses U-Net to colorize SAR satellite images.</p>
-        </div>
-        ''',
-        unsafe_allow_html=True
-    )
+    st.markdown("## About This Project")
+    st.write("This AI model uses U-Net to colorize SAR images.")
+
