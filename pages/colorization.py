@@ -79,9 +79,7 @@ def show():
 
             st.download_button("📥 Download Colorized Image", data=colorized.tobytes(), file_name="colorized.png", mime="image/png")
 
+# ✅ Ensure Streamlit runs properly
+if __name__ == "__main__":
+    show()
 
-            # Evaluation
-            psnr, ssim, mse = calculate_metrics(image_np, colorized)
-            st.write(f"📊 **Metrics:** PSNR: {psnr:.2f} | SSIM: {ssim:.2f} | MSE: {mse:.2f}")
-
-            st.download_button("📥 Download Colorized Image", data=colorized.tobytes(), file_name="colorized.png", mime="image/png")
